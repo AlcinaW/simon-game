@@ -1,9 +1,7 @@
 let gulp = require('gulp');
-//var handlebars = require('handlebars');
 
 let browserSync = require('browser-sync').create();
 
-// Requires the gulp-sass plugin
 let sass = require('gulp-sass');
 
 let cleanCSS = require('gulp-clean-css');
