@@ -1,0 +1,23 @@
+{
+  "name": "simon-game",
+  "version": "1.0.0",
+  "description": "Simon Game with JavaScript and CSS Grid.",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp": "^3.9.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlcinaW/simon-game.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlcinaW/simon-game/issues"
+  },
+  "homepage": "https://github.com/AlcinaW/simon-game#readme"
+}
