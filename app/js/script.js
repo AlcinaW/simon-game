@@ -8,3 +8,6 @@
 //what is strict mode?
 //unintrustive alert mode for making a mistake and playing again
 //counter to display and keep track of how many wins
+
+//4 buttons that play sounds
+//using ReactJS?
