@@ -11,3 +11,18 @@
 
 //4 buttons that play sounds
 //using ReactJS?
+
+const red = "red";
+const blue = "blue";
+const green = "green";
+const yellow = "yellow";
+
+//pass in colour
+let simon = { };
+simon.sendColor = function(color){
+  console.log("New colour: " + color);
+}
+
+const audio{
+
+}
