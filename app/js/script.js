@@ -17,12 +17,36 @@ const blue = "blue";
 const green = "green";
 const yellow = "yellow";
 
-//pass in colour
-let simon = { };
-simon.sendColor = function(color){
-  console.log("New colour: " + color);
-}
+let simon = {
+  sendColor: function(color){
+    console.log("Colour pressed:" + color);
+  },
+  sequence: [],
+  colors: [red, blue, green, yellow],
+  nextSequence: function(){
+    let nextColor = simon.colors[Math.floor(Math.random() * simon.colors.length)];
+    console.log("Random color:", nextColor);
+    simon.sequence.push(nextColor);
+    console.log(simon.sequence);
+  }
 
-const audio{
+};
 
-}
+// const audio = {
+//   red: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound1.mp3"),
+//   blue: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound2.mp3"),
+//   yellow: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound3.mp3"),
+//   green: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound4.mp3")
+// };
+
+const redButton = document.getElementById('red');
+const blueButton = document.getElementById('blue');
+const greenButton = document.getElementById('green');
+const yellowButton = document.getElementById('yellow');
+
+redButton.onclick = (function(){ simon.sendColor(red) });
+blueButton.onclick = (function(){ simon.sendColor(blue) });
+greenButton.onclick = (function(){ simon.sendColor(green) });
+yellowButton.onclick = (function(){ simon.sendColor(yellow) });
+
+//push random array of colours in sequence and invoke it
