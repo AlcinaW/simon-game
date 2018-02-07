@@ -19,10 +19,28 @@ const yellow = "yellow";
 
 let simon = {
   sendColor: function(color){
+    //0 as false-y value
+    //if(simon.sequence.length === 0){
+    if(!simon.sequence.length){
+      //start new game
+      simon.nextSequence();
+    } else {
+      //check if colour matches with step we are on
+      if(color = simon.sequence[si,pm.step]){
+        //got to next step
+      } else {
+        //!!lose condition
+        alert("Wonrg!");
+        simon.sequence = [];
+        simon.step = 0;
+      }
+    }
+
     console.log("Colour pressed:" + color);
   },
   sequence: [],
   colors: [red, blue, green, yellow],
+  step: 0,
   nextSequence: function(){
     let nextColor = simon.colors[Math.floor(Math.random() * simon.colors.length)];
     console.log("Random color:", nextColor);
