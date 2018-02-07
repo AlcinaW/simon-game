@@ -5,8 +5,8 @@ body {
 }
 
 .simon-button {
-  height: 2em;
-  width: 2em;
+  height: 5em;
+  width: 5em;
   border: 2px solid grey;
   &#red {
     background-color: red;
@@ -19,5 +19,5 @@ body {
   }
   &#yellow {
     background-color: yellow;
-  }  
+  }
 }

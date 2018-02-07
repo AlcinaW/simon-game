@@ -10,13 +10,47 @@
 //counter to display and keep track of how many wins
 
 //4 buttons that play sounds
-//using ReactJS?
+
+//Strict Mode listener
+//if not on strict mode, replay sequence
 
 const red = "red";
 const blue = "blue";
 const green = "green";
 const yellow = "yellow";
 
+const startButton = document.getElementById('start');
+const resetButton = document.getElementById('reset');
+const redButton = document.getElementById('red');
+const blueButton = document.getElementById('blue');
+const greenButton = document.getElementById('green');
+const yellowButton = document.getElementById('yellow');
+
+const audio = {
+  red: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound1.mp3"),
+  blue: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound2.mp3"),
+  yellow: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound3.mp3"),
+  green: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound4.mp3")
+};
+
+//"use strict";
+
+//reset and start do the same thing, move function to below
+resetButton.onclick = (function(){ startGame(); });
+startButton.onclick = (function(){ startGame(); });
+redButton.onclick = (function(){ simon.sendColor(red) });
+blueButton.onclick = (function(){ simon.sendColor(blue) });
+greenButton.onclick = (function(){ simon.sendColor(green) });
+yellowButton.onclick = (function(){ simon.sendColor(yellow) });
+
+function startGame(){
+  simon.sequence = [];
+  simon.step = 0;
+  simon.nextSequence();
+  console.log("start and reset");
+};
+
+//add max at 20 steps, then reset 
 let simon = {
   sendColor: function(color){
     //0 as false-y value
@@ -26,13 +60,26 @@ let simon = {
       simon.nextSequence();
     } else {
       //check if colour matches with step we are on
-      if(color = simon.sequence[si,pm.step]){
+      if(color === simon.sequence[simon.step]){
         //got to next step
+        if(simon.step === simon.sequence.length - 1){
+          console.log("sequence complete");
+          //reset the step
+          simon.step = 0;
+          simon.nextSequence();
+        } else {
+          simon.step++;
+        }
       } else {
         //!!lose condition
-        alert("Wonrg!");
+        alert("Wrong!");
+        //how to seperate "strict" from not-strict play?
         simon.sequence = [];
+        //reset sequence
         simon.step = 0;
+        //call startGame to reset game
+        startGame();
+        //print/show current step number
       }
     }
 
@@ -50,21 +97,5 @@ let simon = {
 
 };
 
-// const audio = {
-//   red: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound1.mp3"),
-//   blue: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound2.mp3"),
-//   yellow: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound3.mp3"),
-//   green: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound4.mp3")
-// };
-
-const redButton = document.getElementById('red');
-const blueButton = document.getElementById('blue');
-const greenButton = document.getElementById('green');
-const yellowButton = document.getElementById('yellow');
-
-redButton.onclick = (function(){ simon.sendColor(red) });
-blueButton.onclick = (function(){ simon.sendColor(blue) });
-greenButton.onclick = (function(){ simon.sendColor(green) });
-yellowButton.onclick = (function(){ simon.sendColor(yellow) });
 
 //push random array of colours in sequence and invoke it
