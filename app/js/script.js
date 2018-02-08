@@ -14,6 +14,9 @@
 //Strict Mode listener
 //if not on strict mode, replay sequence
 
+//use CSS to flash the move?
+//on button press, play the audio, except when wrong
+
 const red = "red";
 const blue = "blue";
 const green = "green";
@@ -26,6 +29,9 @@ const blueButton = document.getElementById('blue');
 const greenButton = document.getElementById('green');
 const yellowButton = document.getElementById('yellow');
 
+const counterDiv = document.getElementById('step-counter');
+//needs to show what step you are one right now
+
 const audio = {
   red: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound1.mp3"),
   blue: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound2.mp3"),
@@ -33,6 +39,8 @@ const audio = {
   green: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound4.mp3")
 };
 
+counterDiv.innerHTML = "--";
+let round;
 //"use strict";
 
 //reset and start do the same thing, move function to below
@@ -44,18 +52,22 @@ greenButton.onclick = (function(){ simon.sendColor(green) });
 yellowButton.onclick = (function(){ simon.sendColor(yellow) });
 
 function startGame(){
+  //TODo disable all buttons until start is pressed on
+  round = 0;
+  counterDiv.innerHTML = round;
   simon.sequence = [];
   simon.step = 0;
   simon.nextSequence();
-  console.log("start and reset");
+  console.log("start / reset");
 };
 
-//add max at 20 steps, then reset 
+//add max at 20 steps, then reset
 let simon = {
   sendColor: function(color){
     //0 as false-y value
     //if(simon.sequence.length === 0){
     if(!simon.sequence.length){
+    //if(!simon.sequence.length && simon.sequence.length <= 4){
       //start new game
       simon.nextSequence();
     } else {
@@ -74,27 +86,35 @@ let simon = {
         //!!lose condition
         alert("Wrong!");
         //how to seperate "strict" from not-strict play?
-        simon.sequence = [];
+        //simon.sequence = [];
         //reset sequence
-        simon.step = 0;
+        //simon.step = 0;
         //call startGame to reset game
+        //counterDiv.innerHTML = 1;
         startGame();
         //print/show current step number
       }
     }
-
     console.log("Colour pressed:" + color);
   },
   sequence: [],
   colors: [red, blue, green, yellow],
   step: 0,
+  // roundCount: function(){
+  //   round = simon.step + 1;
+  //   counterDiv.innerHTML = round;
+  //   console.log("Round is " + round);
+  // },
   nextSequence: function(){
     let nextColor = simon.colors[Math.floor(Math.random() * simon.colors.length)];
     console.log("Random color:", nextColor);
     simon.sequence.push(nextColor);
     console.log(simon.sequence);
+    //simon.roundCount();
+    round++;
+    counterDiv.innerHTML = round;
+    console.log("Round is " + round);
   }
-
 };
 
 
