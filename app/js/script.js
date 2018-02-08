@@ -86,13 +86,8 @@ let simon = {
         //!!lose condition
         alert("Wrong!");
         //how to seperate "strict" from not-strict play?
-        //simon.sequence = [];
-        //reset sequence
-        //simon.step = 0;
         //call startGame to reset game
-        //counterDiv.innerHTML = 1;
         startGame();
-        //print/show current step number
       }
     }
     console.log("Colour pressed:" + color);
@@ -100,11 +95,6 @@ let simon = {
   sequence: [],
   colors: [red, blue, green, yellow],
   step: 0,
-  // roundCount: function(){
-  //   round = simon.step + 1;
-  //   counterDiv.innerHTML = round;
-  //   console.log("Round is " + round);
-  // },
   nextSequence: function(){
     let nextColor = simon.colors[Math.floor(Math.random() * simon.colors.length)];
     console.log("Random color:", nextColor);
@@ -117,5 +107,4 @@ let simon = {
   }
 };
 
-
-//push random array of colours in sequence and invoke it
+//TODO Case switch for button disable
