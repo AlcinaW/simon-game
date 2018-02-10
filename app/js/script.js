@@ -51,6 +51,11 @@ blueButton.onclick = (function(){ simon.sendColor(blue) });
 greenButton.onclick = (function(){ simon.sendColor(green) });
 yellowButton.onclick = (function(){ simon.sendColor(yellow) });
 
+redButton.disabled = true;
+blueButton.disabled = true;
+greenButton.disabled =  true;
+yellowButton.disabled = true;
+
 function startGame(){
   //TODo disable all buttons until start is pressed on
   round = 0;
@@ -59,6 +64,11 @@ function startGame(){
   simon.step = 0;
   simon.nextSequence();
   console.log("start / reset");
+
+  redButton.disabled = false;
+  blueButton.disabled = false;
+  greenButton.disabled = false;
+  yellowButton.disabled = false;
 };
 
 //add max at 20 steps, then reset
