@@ -46,7 +46,7 @@ let round;
 //reset and start do the same thing, move function to below
 resetButton.onclick = (function(){ startGame(); });
 startButton.onclick = (function(){ startGame(); });
-redButton.onclick = (function(){ simon.sendColor(red) });
+redButton.onclick = (function(){ audio.red.currentTime = 0; audio.red.play(); simon.sendColor(red)});
 blueButton.onclick = (function(){ simon.sendColor(blue) });
 greenButton.onclick = (function(){ simon.sendColor(green) });
 yellowButton.onclick = (function(){ simon.sendColor(yellow) });
@@ -70,6 +70,11 @@ function startGame(){
   greenButton.disabled = false;
   yellowButton.disabled = false;
 };
+
+// function playSound() {
+//       var sound = document.getElementById("audio");
+//       sound.play()
+// }
 
 //add max at 20 steps, then reset
 let simon = {
