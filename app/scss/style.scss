@@ -23,4 +23,10 @@ body {
   &.colour-button {
     //cursor: pointer;
   }
+  &.strict-on {
+    color: red;
+  }
+  &.strict-off {
+    color: green;
+  }
 }

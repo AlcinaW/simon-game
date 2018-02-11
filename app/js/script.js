@@ -24,6 +24,8 @@ const yellow = "yellow";
 
 const startButton = document.getElementById('start');
 const resetButton = document.getElementById('reset');
+const strictButton = document.getElementById('strict');
+
 const redButton = document.getElementById('red');
 const blueButton = document.getElementById('blue');
 const greenButton = document.getElementById('green');
@@ -33,23 +35,45 @@ const counterDiv = document.getElementById('step-counter');
 //needs to show what step you are one right now
 
 const audio = {
-  red: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound1.mp3"),
-  blue: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound2.mp3"),
-  yellow: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound3.mp3"),
-  green: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound4.mp3")
+  redAudio: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound1.mp3"),
+  blueAudio: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound2.mp3"),
+  yellowAudio: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound3.mp3"),
+  greenAudio: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound4.mp3")
 };
+
+// let redAudio = new Audio("https://s3.amazonaws.com/freecodecamp/simonSound1.mp3");
+// let blueAudio = new Audio("https://s3.amazonaws.com/freecodecamp/simonSound2.mp3");
+// let yellowAudio = new Audio("https://s3.amazonaws.com/freecodecamp/simonSound3.mp3");
+// let greenAudio = new Audio("https://s3.amazonaws.com/freecodecamp/simonSound4.mp3");
 
 counterDiv.innerHTML = "--";
 let round;
 //"use strict";
 
-//reset and start do the same thing, move function to below
-resetButton.onclick = (function(){ startGame(); });
-startButton.onclick = (function(){ startGame(); });
-redButton.onclick = (function(){ audio.red.currentTime = 0; audio.red.play(); simon.sendColor(red)});
-blueButton.onclick = (function(){ simon.sendColor(blue) });
-greenButton.onclick = (function(){ simon.sendColor(green) });
-yellowButton.onclick = (function(){ simon.sendColor(yellow) });
+resetButton.onclick = (function(){
+  startGame(); });
+startButton.onclick = (function(){
+  startGame(); });
+redButton.onclick = (function(){
+  audio.redAudio.load();
+  audio.redAudio.play();
+  console.log("Colour pressed is red");
+  simon.sendColor(red) });
+blueButton.onclick = (function(){
+  audio.blueAudio.load();
+  audio.blueAudio.play();
+  console.log("Colour pressed is blue");
+  simon.sendColor(blue) });
+greenButton.onclick = (function(){
+  audio.greenAudio.load();
+  audio.greenAudio.play();
+  console.log("Colour pressed is green");
+  simon.sendColor(green) });
+yellowButton.onclick = (function(){
+  audio.yellowAudio.load();
+  audio.yellowAudio.play();
+  console.log("Colour pressed is yellow");
+  simon.sendColor(yellow) });
 
 redButton.disabled = true;
 blueButton.disabled = true;
@@ -74,7 +98,22 @@ function startGame(){
 // function playSound() {
 //       var sound = document.getElementById("audio");
 //       sound.play()
-// }
+//}
+
+strictButton.onclick = (function strictToggle(classToggle) {
+  this.classList.toggle('strict-on');
+  this.classList.toggle('strict-off');
+
+  if(strictButton.value == "OFF"){
+    strictButton.value = "ON";
+    console.log("strict mode is on");
+    strictButton.innerHTML = "Strict ON"
+  } else {
+    strictButton.value = "OFF";
+    console.log("strict mode is off");
+    strictButton.innerHTML = "Strict OFF"
+  }
+});
 
 //add max at 20 steps, then reset
 let simon = {
@@ -105,15 +144,17 @@ let simon = {
         startGame();
       }
     }
-    console.log("Colour pressed:" + color);
+    //console.log("Colour pressed:" + color);
   },
   sequence: [],
+  //play sound associated with each array item
   colors: [red, blue, green, yellow],
   step: 0,
   nextSequence: function(){
     let nextColor = simon.colors[Math.floor(Math.random() * simon.colors.length)];
     console.log("Random color:", nextColor);
     simon.sequence.push(nextColor);
+    //PLAY NEXT SEQUENCE --> flash in sequence + make sound 
     console.log(simon.sequence);
     //simon.roundCount();
     round++;

@@ -15,3 +15,7 @@ body {
     background-color: green; }
   .simon-button#yellow {
     background-color: yellow; }
+  .simon-button.strict-on {
+    color: red; }
+  .simon-button.strict-off {
+    color: green; }
