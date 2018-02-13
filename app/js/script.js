@@ -95,10 +95,6 @@ function startGame(){
   yellowButton.disabled = false;
 };
 
-// function playSound() {
-//       var sound = document.getElementById("audio");
-//       sound.play()
-//}
 
 strictButton.onclick = (function strictToggle(classToggle) {
   this.classList.toggle('strict-on');
@@ -123,7 +119,9 @@ let simon = {
     if(!simon.sequence.length){
     //if(!simon.sequence.length && simon.sequence.length <= 4){
       //start new game
+
       simon.nextSequence();
+
     } else {
       //check if colour matches with step we are on
       if(color === simon.sequence[simon.step]){
@@ -154,10 +152,20 @@ let simon = {
     let nextColor = simon.colors[Math.floor(Math.random() * simon.colors.length)];
     console.log("Random color:", nextColor);
     simon.sequence.push(nextColor);
-    //PLAY NEXT SEQUENCE --> flash in sequence + make sound 
+    //PLAY NEXT SEQUENCE --> flash in sequence + make sound
     console.log(simon.sequence);
-    //simon.roundCount();
+    //have the new array
+    //loop through the array and put together a series of colour flashes and sounds
+    //disable buttons until sequence is complete
+    // ==
     round++;
+
+    if (round === 20){
+      alert("Congrats you won");
+      console.log("bbb");
+      startGame();
+    }
+    
     counterDiv.innerHTML = round;
     console.log("Round is " + round);
   }
