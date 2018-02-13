@@ -111,17 +111,22 @@ strictButton.onclick = (function strictToggle(classToggle) {
   }
 });
 
+
+// function myTimeoutFunction() {
+//   doStuff();
+// }
+//
+// myTimeoutFunction();
+// setInterval(myTimeoutFunction, 1000);
+
+
 //add max at 20 steps, then reset
 let simon = {
   sendColor: function(color){
     //0 as false-y value
     //if(simon.sequence.length === 0){
     if(!simon.sequence.length){
-    //if(!simon.sequence.length && simon.sequence.length <= 4){
-      //start new game
-
       simon.nextSequence();
-
     } else {
       //check if colour matches with step we are on
       if(color === simon.sequence[simon.step]){
@@ -155,9 +160,14 @@ let simon = {
     //PLAY NEXT SEQUENCE --> flash in sequence + make sound
     console.log(simon.sequence);
     //have the new array
+
     //loop through the array and put together a series of colour flashes and sounds
     //disable buttons until sequence is complete
     // ==
+    for (var key in simon.sequence) {
+      console.log("dgfdgfdfgg");
+    }
+
     round++;
 
     if (round === 20){
@@ -165,7 +175,7 @@ let simon = {
       console.log("bbb");
       startGame();
     }
-    
+
     counterDiv.innerHTML = round;
     console.log("Round is " + round);
   }
