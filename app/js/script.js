@@ -60,22 +60,22 @@ resetButton.onclick = (function(){
 startButton.onclick = (function(){
   startGame(); });
 redButton.onclick = (function(){
-  //audio.redAudio.load();
+  audio.redAudio.load();
   audio.redAudio.play();
   console.log("Colour pressed is red");
   simon.sendColor(red) });
 blueButton.onclick = (function(){
-  //audio.blueAudio.load();
+  audio.blueAudio.load();
   audio.blueAudio.play();
   console.log("Colour pressed is blue");
   simon.sendColor(blue) });
 greenButton.onclick = (function(){
-  //audio.greenAudio.load();
+  audio.greenAudio.load();
   audio.greenAudio.play();
   console.log("Colour pressed is green");
   simon.sendColor(green) });
 yellowButton.onclick = (function(){
-  //audio.yellowAudio.load();
+  audio.yellowAudio.load();
   audio.yellowAudio.play();
   console.log("Colour pressed is yellow");
   simon.sendColor(yellow) });
@@ -169,6 +169,7 @@ let simon = {
     //loop through the array and put together a series of colour flashes and sounds
     //disable buttons until sequence is complete
     // ==
+
     round++;
 
     if (round === 20){
@@ -179,60 +180,84 @@ let simon = {
 
     counterDiv.innerHTML = round;
     console.log("Round is " + round);
-    simon.playSequence();
-  },
-  playSequence: function(){
-    for (let key in simon.sequence) {
+    //simon.playSequence();
 
-      if (key == red){
+    for (let i = 0; i < simon.sequence.length; i++){
+      if (simon.sequence[i] == "red"){
+        //redButton.click();
+        console.log("red button sound and flash");
+      } else if (simon.sequence[i] == "blue"){
+          //audio.blueAudio.load();
+          //audio.blueAudio.play();
+          //blueButton.click();
+          console.log("blue button sound and flash");
+      } else if (simon.sequence[i] == "green"){
+          //audio.greenAudio.load();
+          //audio.greenAudio.play();
+          //greenButton.click();
+          console.log("green button sound and flash");
+      } else if (simon.sequence[i] == "yellow"){
+        //audio.yellowAudio.load();
+        //audio.yellowAudio.play();
+        //yellowButton.click();
+        console.log("yellow button sound and flash");
+      } else {
+        console.log("something is wrong", i);
+      }
+    }
+  }
+  //,
+  //playSequence: function(){
+    // let playRedPromise = audio.redAudio.play();
+    // let playBluePromise = audio.blueAudio.play();
+    // let playGreenPromise = audio.greenAudio.play();
+    // let playYellowPromise = audio.yellowAudio.play();
 
-        let isPlaying = audio.redAudio.currentTime > 0 && !audio.redAudio.paused && !audio.redAudio.ended
-        && audio.redAudio.readyState > 2;
+    //for (let key in simon.sequence) {
+    //for (let i = 0; i < simon.sequence.length; i++){
+      //if (simon.sequence[i] == "red"){
+        // if (playRedPromise !== undefined) {
+        //   playredPromise.then(function() {
+        //     console.log("played red");
+        //   }).catch(function(error) {
+        //     console.log(error);
+        //   });
+        // }
 
-        if (!isPlaying) {
-          audio.redAudio.play();
-        }
         //add remove classList
         //play sound
         //redButton[0].removeAttribute("id");
         //redButton.classList.toggle('.red');
         // audio.redAudio.load();
         // audio.redAudio.play();
-        console.log("red button sound and flash");
+        //if (Object.prototype.hasOwnProperty.call(obj, prop)) {
+          // prop is not inherited
+        //}
+        //redButton.click();
+        //console.log(key, red);
+        //console.log("red button sound and flash");
         //redButton.classList.toggle('');
-      } else if (key == blue){
-          let isPlaying = audio.blueAudio.currentTime > 0 && !audio.blueAudio.paused && !audio.blueAudio.ended
-          && audio.blueAudio.readyState > 2;
+      //} else if (simon.sequence[i] == "blue"){
 
-          if (!isPlaying) {
-            audio.blueAudio.play();
-          }
           //audio.blueAudio.load();
           //audio.blueAudio.play();
-          console.log("blue button sound and flash");
-      } else if (key === green){
-          let isPlaying = audio.greenAudio.currentTime > 0 && !audio.greenAudio.paused && !audio.greenAudio.ended
-          && audio.greenAudio.readyState > 2;
-
-          if (!isPlaying) {
-            audio.greenAudio.play();
-          }
+      //     blueButton.click();
+      //     console.log("blue button sound and flash");
+      // } else if (simon.sequence[i] == "green"){
           //audio.greenAudio.load();
           //audio.greenAudio.play();
-          console.log("green button sound and flash");
-      } else {
-          let isPlaying = audio.yellowAudio.currentTime > 0 && !audio.yellowAudio.paused && !audio.yellowAudio.ended
-          && audio.yellowAudio.readyState > 2;
-
-          if (!isPlaying) {
-            audio.redAudio.play();
-          }
+      //     greenButton.click();
+      //     console.log("green button sound and flash");
+      // } else if (simon.sequence[i] == "yellow"){
         //audio.yellowAudio.load();
         //audio.yellowAudio.play();
-        console.log("yellow button sound and flash");
-      }
-    }
-  }
+    //     yellowButton.click();
+    //     console.log("yellow button sound and flash");
+    //   } else {
+    //     console.log("something is wrong", i);
+    //   }
+    // }
+  //}
 };
 
 //TODO Case switch for button disable
