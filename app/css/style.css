@@ -15,6 +15,20 @@ body {
     background-color: green; }
   .simon-button#yellow {
     background-color: yellow; }
+  .simon-button.red {
+    border: 5px solid red;
+    background-color: black; }
+  .simon-button.blue {
+    border: 5px solid blue;
+    background-color: black; }
+  .simon-button.green {
+    border: 5px solid green;
+    background-color: black; }
+  .simon-button.yellow {
+    border: 5px solid yellow;
+    background-color: black; }
+  .simon-button.black {
+    background-color: black; }
   .simon-button.strict-on {
     color: red; }
   .simon-button.strict-off {

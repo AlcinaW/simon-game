@@ -20,6 +20,25 @@ body {
   &#yellow {
     background-color: yellow;
   }
+  &.red {
+    border: 5px solid red;
+    background-color: black;
+  }
+  &.blue {
+    border: 5px solid blue;
+    background-color: black;
+  }
+  &.green {
+    border: 5px solid green;
+    background-color: black;
+  }
+  &.yellow {
+    border: 5px solid yellow;
+    background-color: black;
+  }
+  &.black {
+    background-color: black;
+  }
   &.colour-button {
     //cursor: pointer;
   }

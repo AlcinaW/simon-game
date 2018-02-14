@@ -31,6 +31,11 @@ const blueButton = document.getElementById('blue');
 const greenButton = document.getElementById('green');
 const yellowButton = document.getElementById('yellow');
 
+// const redButton = document.getElementsByClassName('red');;
+// const blueButton = document.getElementsByClassName('blue');
+// const greenButton = document.getElementsByClassName('green');
+// const yellowButton = document.getElementsByClassName('yellow');
+
 const counterDiv = document.getElementById('step-counter');
 //needs to show what step you are one right now
 
@@ -55,22 +60,22 @@ resetButton.onclick = (function(){
 startButton.onclick = (function(){
   startGame(); });
 redButton.onclick = (function(){
-  audio.redAudio.load();
+  //audio.redAudio.load();
   audio.redAudio.play();
   console.log("Colour pressed is red");
   simon.sendColor(red) });
 blueButton.onclick = (function(){
-  audio.blueAudio.load();
+  //audio.blueAudio.load();
   audio.blueAudio.play();
   console.log("Colour pressed is blue");
   simon.sendColor(blue) });
 greenButton.onclick = (function(){
-  audio.greenAudio.load();
+  //audio.greenAudio.load();
   audio.greenAudio.play();
   console.log("Colour pressed is green");
   simon.sendColor(green) });
 yellowButton.onclick = (function(){
-  audio.yellowAudio.load();
+  //audio.yellowAudio.load();
   audio.yellowAudio.play();
   console.log("Colour pressed is yellow");
   simon.sendColor(yellow) });
@@ -164,10 +169,6 @@ let simon = {
     //loop through the array and put together a series of colour flashes and sounds
     //disable buttons until sequence is complete
     // ==
-    for (var key in simon.sequence) {
-      console.log("dgfdgfdfgg");
-    }
-
     round++;
 
     if (round === 20){
@@ -178,6 +179,59 @@ let simon = {
 
     counterDiv.innerHTML = round;
     console.log("Round is " + round);
+    simon.playSequence();
+  },
+  playSequence: function(){
+    for (let key in simon.sequence) {
+
+      if (key == red){
+
+        let isPlaying = audio.redAudio.currentTime > 0 && !audio.redAudio.paused && !audio.redAudio.ended
+        && audio.redAudio.readyState > 2;
+
+        if (!isPlaying) {
+          audio.redAudio.play();
+        }
+        //add remove classList
+        //play sound
+        //redButton[0].removeAttribute("id");
+        //redButton.classList.toggle('.red');
+        // audio.redAudio.load();
+        // audio.redAudio.play();
+        console.log("red button sound and flash");
+        //redButton.classList.toggle('');
+      } else if (key == blue){
+          let isPlaying = audio.blueAudio.currentTime > 0 && !audio.blueAudio.paused && !audio.blueAudio.ended
+          && audio.blueAudio.readyState > 2;
+
+          if (!isPlaying) {
+            audio.blueAudio.play();
+          }
+          //audio.blueAudio.load();
+          //audio.blueAudio.play();
+          console.log("blue button sound and flash");
+      } else if (key === green){
+          let isPlaying = audio.greenAudio.currentTime > 0 && !audio.greenAudio.paused && !audio.greenAudio.ended
+          && audio.greenAudio.readyState > 2;
+
+          if (!isPlaying) {
+            audio.greenAudio.play();
+          }
+          //audio.greenAudio.load();
+          //audio.greenAudio.play();
+          console.log("green button sound and flash");
+      } else {
+          let isPlaying = audio.yellowAudio.currentTime > 0 && !audio.yellowAudio.paused && !audio.yellowAudio.ended
+          && audio.yellowAudio.readyState > 2;
+
+          if (!isPlaying) {
+            audio.redAudio.play();
+          }
+        //audio.yellowAudio.load();
+        //audio.yellowAudio.play();
+        console.log("yellow button sound and flash");
+      }
+    }
   }
 };
 
