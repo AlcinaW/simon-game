@@ -87,14 +87,14 @@ blueButton.disabled = true;
 greenButton.disabled =  true;
 yellowButton.disabled = true;
 
-function startGame(){
-  //TODo disable all buttons until start is pressed on
+//TODO disable all buttons until start is pressed on
+let startGame = function(){
   round = 0;
   counterDiv.innerHTML = round;
   simon.sequence = [];
   simon.step = 0;
   simon.nextSequence();
-  console.log("start / reset");
+  console.log("start / reset was pressed");
 
   redButton.disabled = false;
   blueButton.disabled = false;
@@ -115,11 +115,24 @@ strictButton.onclick = (function strictToggle(classToggle) {
   } else {
     strictButton.value = "OFF";
     console.log("strict mode is off");
-    strictButton.innerHTML = "Strict OFF"
+    strictButton.innerHTML = "Strict OFF";
   }
 });
 
 let simon = {
+  // startGame: function(){
+  //   round = 0;
+  //   counterDiv.innerHTML = round;
+  //   simon.sequence = [];
+  //   simon.step = 0;
+  //   simon.nextSequence();
+  //   console.log("start / reset");
+  //
+  //   redButton.disabled = false;
+  //   blueButton.disabled = false;
+  //   greenButton.disabled = false;
+  //   yellowButton.disabled = false;
+  // },
   sendColor: function(color){
     if(!simon.sequence.length){
       simon.nextSequence();
@@ -143,7 +156,6 @@ let simon = {
         startGame();
       }
     }
-    //console.log("Colour pressed:" + color);
   },
   sequence: [],
   //play sound associated with each array item
@@ -159,8 +171,8 @@ let simon = {
     round++;
 
     if (round === 20){
-      alert("Congrats you won");
-      console.log("bbb");
+      alert("Congrats, you won!");
+      console.log("you win, restart");
       startGame();
     }
 
@@ -200,8 +212,7 @@ function playRedAudio(){
   setTimeout(function(){
     audio.redAudio.load();
     audio.redAudio.play();
-    console.log("red button sound and flash 1");
+    //add class to flash the colour of the button played
+    console.log("red button sound played");
   }, 1500);
 }
-
-//TODO Case switch for button disable
