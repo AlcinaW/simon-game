@@ -13,26 +13,29 @@
 //Strict Mode listener
 //if not on strict mode, replay sequence
 
-//use CSS to flash the move?
-//on button press, play the audio, except when wrong
-
+//colours
 const red = "red";
 const blue = "blue";
 const green = "green";
 const yellow = "yellow";
+const strict = "strict";
 
-const startButton = document.getElementById('start');
-const resetButton = document.getElementById('reset');
-const strictButton = document.getElementById('strict');
+//buttons for starting game and setting strict/not-strict
+const startButton = document.getElementById("start");
+const strictButton = document.getElementById("strict");
 
-let redButton = document.getElementById('red');
-let blueButton = document.getElementById('blue');
-let greenButton = document.getElementById('green');
-let yellowButton = document.getElementById('yellow');
+//button input for matching and showing sequence
+const redButton = document.getElementById("red");
+const blueButton = document.getElementById("blue");
+const greenButton = document.getElementById("green");
+const yellowButton = document.getElementById("yellow");
 
-const counterDiv = document.getElementById('step-counter');
-//needs to show what step you are one right now
+//counts what round is currently active
+const counterDiv = document.getElementById("step-counter");
+counterDiv.innerHTML = "--";
+let round;
 
+//audio when button is pressed of sequence is played
 const audio = {
   redAudio: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound1.mp3"),
   blueAudio: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound2.mp3"),
@@ -40,13 +43,7 @@ const audio = {
   greenAudio: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound4.mp3")
 };
 
-counterDiv.innerHTML = "--";
-let round;
-//"use strict";
-
-//Both buttons do the same thing, just have one that swaps between?
-resetButton.onclick = (function(){
-  startGame(); });
+//start or reset
 startButton.onclick = (function(){
   startGame(); });
 
@@ -91,10 +88,38 @@ yellowButton.onmouseup = (function(){
   yellowButton.classList.replace("yellow", "black");
 });
 
+//on page load, buttons are disabled
 redButton.disabled = true;
 blueButton.disabled = true;
 greenButton.disabled =  true;
 yellowButton.disabled = true;
+
+
+let strictMode = true;
+//controls if game is strict or not, and resets the game
+strictButton.onclick = (function strictToggle(classToggle) {
+  this.classList.toggle('strict-on');
+  this.classList.toggle('strict-off');
+
+  if(strictButton.value == "OFF"){
+    strictButton.value = "ON";
+    console.log("strict mode is on");
+    strictButton.innerHTML = "Strict ON";
+    strictMode = true;
+    startGame();
+    //strictGame(yesno);
+    //TODO send value to simon game to determine if strict is on or off
+    //If the "strict" toggle is changed, reset game (should not disable this button)
+  } else {
+    strictButton.value = "OFF";
+    console.log("strict mode is off");
+    strictButton.innerHTML = "Strict OFF";
+    strictMode = false;
+    startGame();
+  }
+});
+
+
 
 //TODO disable all buttons until start is pressed on
 let startGame = function(){
@@ -103,38 +128,16 @@ let startGame = function(){
   simon.sequence = [];
   simon.step = 0;
   simon.nextSequence();
-  console.log("start / reset was pressed");
-
-  redButton.disabled = false;
-  blueButton.disabled = false;
-  greenButton.disabled = false;
-  yellowButton.disabled = false;
+  console.log("game restarted");
 };
-
-strictButton.onclick = (function strictToggle(classToggle) {
-  this.classList.toggle('strict-on');
-  this.classList.toggle('strict-off');
-
-  if(strictButton.value == "OFF"){
-    strictButton.value = "ON";
-    console.log("strict mode is on");
-    strictButton.innerHTML = "Strict ON"
-    //TODO send value to simon game to determine if strict is on or off
-    //If the "strict" toggle is changed, reset game (should not disable this button)
-  } else {
-    strictButton.value = "OFF";
-    console.log("strict mode is off");
-    strictButton.innerHTML = "Strict OFF";
-  }
-});
 
 let simon = {
   sendColor: function(color){
-    //TODO set another setTimeout to delay 1500ms after the last button press?
     if(!simon.sequence.length){
       simon.nextSequence();
     } else {
       //check if colour matches with step we are on
+      //TODO wrap in a new if strict or not-strict, or rewrite
       if(color === simon.sequence[simon.step]){
         //got to next step
         if(simon.step === simon.sequence.length - 1){
@@ -148,11 +151,26 @@ let simon = {
           simon.step++;
         }
       } else {
-        //!!lose condition
-        alert("Wrong!");
+        //lose condition in strict
+        //if (strictMode == true){
+          alert("Wrong!");
+          //reset all buttons to default
+          redButton.classList.replace("red", "black");
+          blueButton.classList.replace("blue", "black");
+          greenButton.classList.replace("green", "black");
+          yellowButton.classList.replace("yellow", "black");
+          console.log("strict mode reset");
+          startGame();
+        //}
+        // redButton.classList.replace("red", "black");
+        // blueButton.classList.replace("blue", "black");
+        // greenButton.classList.replace("green", "black");
+        // yellowButton.classList.replace("yellow", "black");
+        // simon.nextSequence();
+        //replay notes again
         //how to seperate "strict" from not-strict play?
         //call startGame to reset game
-        startGame();
+
       }
     }
   },
@@ -162,15 +180,13 @@ let simon = {
   step: 0,
   nextSequence: function(){
     let nextColor = simon.colors[Math.floor(Math.random() * simon.colors.length)];
-
     console.log("Random color:", nextColor);
     simon.sequence.push(nextColor);
-
     console.log(simon.sequence);
-
     round++;
 
-    if (round === 20){
+    //if arrive at round 21, you win and restart
+    if (round > 20){
       alert("Congrats, you won!");
       console.log("you win, restart");
       startGame();
@@ -179,11 +195,16 @@ let simon = {
     counterDiv.innerHTML = round;
     console.log("Round is " + round);
 
+    //controls the audio sequence being played so that not all the nots play at the same time
     let i = 0;
 
     function delayedAudioLoop(){
+      //while looping through the audio, input is not allowed
+      redButton.disabled = true;
+      blueButton.disabled = true;
+      greenButton.disabled = true;
+      yellowButton.disabled = true;
 
-    //set timeout for watch loop of the audio
       if (simon.sequence[i] == "red"){
         redButton.classList.replace("black", "red");
         setTimeout(function(){
@@ -193,7 +214,6 @@ let simon = {
         audio.redAudio.load();
         audio.redAudio.play();
         audio.redAudio.currentTime = 0;
-        //TODO For each loop through the array, call a delay to each sound and flash is seperate
         console.log("red button sound done");
       } else if (simon.sequence[i] == "blue"){
         blueButton.classList.replace("black", "blue");
@@ -231,14 +251,18 @@ let simon = {
 
     //if the end of the array has been reached, stop
     if(++i == simon.sequence.length){
+      console.log("buttons enabled");
+      redButton.disabled = false;
+      blueButton.disabled = false;
+      greenButton.disabled = false;
+      yellowButton.disabled = false;
       return;
     }
 
     //recursively call the delayed loop function with a delay
     window.setTimeout(delayedAudioLoop, 1200);
     }
-    delayedAudioLoop(); //start loop
-
-
+    //start loop
+    delayedAudioLoop();
   }
 };
