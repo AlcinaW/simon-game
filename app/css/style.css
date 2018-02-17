@@ -5,30 +5,25 @@ body {
 
 .simon-button {
   height: 5em;
-  width: 5em;
-  border: 2px solid grey; }
+  width: 5em; }
   .simon-button#red {
-    background-color: red; }
+    border: 5px solid red; }
   .simon-button#blue {
-    background-color: blue; }
+    border: 5px solid blue; }
   .simon-button#green {
-    background-color: green; }
+    border: 5px solid green; }
   .simon-button#yellow {
-    background-color: yellow; }
+    border: 5px solid yellow; }
   .simon-button.red {
-    border: 5px solid red;
-    background-color: black; }
+    background: red; }
   .simon-button.blue {
-    border: 5px solid blue;
-    background-color: black; }
+    background: blue; }
   .simon-button.green {
-    border: 5px solid green;
-    background-color: black; }
+    background: green; }
   .simon-button.yellow {
-    border: 5px solid yellow;
-    background-color: black; }
+    background: yellow; }
   .simon-button.black {
-    background-color: black; }
+    background: black; }
   .simon-button.strict-on {
     color: red; }
   .simon-button.strict-off {

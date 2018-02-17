@@ -7,37 +7,32 @@ body {
 .simon-button {
   height: 5em;
   width: 5em;
-  border: 2px solid grey;
   &#red {
-    background-color: red;
+    border: 5px solid red;
   }
   &#blue {
-    background-color: blue;
+    border: 5px solid blue;
   }
   &#green {
-    background-color: green;
+    border: 5px solid green;
   }
   &#yellow {
-    background-color: yellow;
+    border: 5px solid yellow;
   }
   &.red {
-    border: 5px solid red;
-    background-color: black;
+    background: red;
   }
   &.blue {
-    border: 5px solid blue;
-    background-color: black;
+    background: blue;
   }
   &.green {
-    border: 5px solid green;
-    background-color: black;
+    background: green;
   }
   &.yellow {
-    border: 5px solid yellow;
-    background-color: black;
+    background: yellow;
   }
   &.black {
-    background-color: black;
+    background: black;
   }
   &.colour-button {
     //cursor: pointer;

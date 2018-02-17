@@ -25,10 +25,10 @@ const startButton = document.getElementById('start');
 const resetButton = document.getElementById('reset');
 const strictButton = document.getElementById('strict');
 
-const redButton = document.getElementById('red');
-const blueButton = document.getElementById('blue');
-const greenButton = document.getElementById('green');
-const yellowButton = document.getElementById('yellow');
+let redButton = document.getElementById('red');
+let blueButton = document.getElementById('blue');
+let greenButton = document.getElementById('green');
+let yellowButton = document.getElementById('yellow');
 
 const counterDiv = document.getElementById('step-counter');
 //needs to show what step you are one right now
@@ -51,36 +51,45 @@ startButton.onclick = (function(){
   startGame(); });
 
 //TODO rewrite this
-redButton.onclick = (function(){
+redButton.onmousedown = (function(){
+  redButton.classList.replace("black", "red");
   audio.redAudio.load();
-
-  // let isRedPlaying = audio.redAudio.currentTime > 0 && !audio.redAudio.paused && !audio.redAudio.ended
-  //     && audio.redAudio.readyState > 2;
-  //
-  // if (!isRedPlaying) {
   audio.redAudio.play();
-  audio.redAudio.currentTime = 0;
-  //}
   console.log("Colour pressed is red");
   simon.sendColor(red) });
-blueButton.onclick = (function(){
+redButton.onmouseup = (function(){
+  redButton.classList.replace("red", "black");
+});
+blueButton.onmousedown = (function(){
+  blueButton.classList.replace("black", "blue");
   audio.blueAudio.load();
   audio.blueAudio.play();
   audio.blueAudio.currentTime = 0;
   console.log("Colour pressed is blue");
   simon.sendColor(blue) });
-greenButton.onclick = (function(){
+blueButton.onmouseup = (function(){
+  blueButton.classList.replace("blue", "black");
+});
+greenButton.onmousedown = (function(){
+  greenButton.classList.replace("black", "green");
   audio.greenAudio.load();
   audio.greenAudio.play();
   audio.greenAudio.currentTime = 0;
   console.log("Colour pressed is green");
   simon.sendColor(green) });
-yellowButton.onclick = (function(){
+greenButton.onmouseup = (function(){
+  greenButton.classList.replace("green", "black");
+});
+yellowButton.onmousedown = (function(){
+  yellowButton.classList.replace("black", "yellow");
   audio.yellowAudio.load();
   audio.yellowAudio.play();
   audio.yellowAudio.currentTime = 0;
   console.log("Colour pressed is yellow");
   simon.sendColor(yellow) });
+yellowButton.onmouseup = (function(){
+  yellowButton.classList.replace("yellow", "black");
+});
 
 redButton.disabled = true;
 blueButton.disabled = true;
@@ -120,20 +129,8 @@ strictButton.onclick = (function strictToggle(classToggle) {
 });
 
 let simon = {
-  // startGame: function(){
-  //   round = 0;
-  //   counterDiv.innerHTML = round;
-  //   simon.sequence = [];
-  //   simon.step = 0;
-  //   simon.nextSequence();
-  //   console.log("start / reset");
-  //
-  //   redButton.disabled = false;
-  //   blueButton.disabled = false;
-  //   greenButton.disabled = false;
-  //   yellowButton.disabled = false;
-  // },
   sendColor: function(color){
+    //TODO set another setTimeout to delay 1500ms after the last button press?
     if(!simon.sequence.length){
       simon.nextSequence();
     } else {
@@ -144,7 +141,9 @@ let simon = {
           console.log("sequence complete");
           //reset the step
           simon.step = 0;
-          simon.nextSequence();
+          setTimeout(function(){
+            simon.nextSequence();
+          },1200);
         } else {
           simon.step++;
         }
@@ -163,9 +162,10 @@ let simon = {
   step: 0,
   nextSequence: function(){
     let nextColor = simon.colors[Math.floor(Math.random() * simon.colors.length)];
+
     console.log("Random color:", nextColor);
     simon.sequence.push(nextColor);
-    //PLAY NEXT SEQUENCE --> flash in sequence + make sound
+
     console.log(simon.sequence);
 
     round++;
@@ -179,40 +179,66 @@ let simon = {
     counterDiv.innerHTML = round;
     console.log("Round is " + round);
 
+    let i = 0;
+
+    function delayedAudioLoop(){
+
     //set timeout for watch loop of the audio
-    //setTimeout(function(){
-      for (let i = 0; i < simon.sequence.length; i++){
-        if (simon.sequence[i] == "red"){
-          playRedAudio();
-          //audio.redAudio.load();
-          //audio.redAudio.play();
-          //TODO For each loop through the array, call a delay to each sound and flash is seperate
-          console.log("red button go");
-        } else if (simon.sequence[i] == "blue"){
-            // audio.blueAudio.load();
-            // audio.blueAudio.play();
-            console.log("blue button sound and flash");
-        } else if (simon.sequence[i] == "green"){
-            //audio.greenAudio.load();
-            //audio.greenAudio.play();
-            console.log("green button sound and flash");
-        } else if (simon.sequence[i] == "yellow"){
-            //audio.yellowAudio.load();
-            //audio.yellowAudio.play();
-            console.log("yellow button sound and flash");
-        } else {
-            console.log("something is wrong", i);
-        }
+      if (simon.sequence[i] == "red"){
+        redButton.classList.replace("black", "red");
+        setTimeout(function(){
+          redButton.classList.replace("red", "black");
+          console.log("red button flashed");
+        },800);
+        audio.redAudio.load();
+        audio.redAudio.play();
+        audio.redAudio.currentTime = 0;
+        //TODO For each loop through the array, call a delay to each sound and flash is seperate
+        console.log("red button sound done");
+      } else if (simon.sequence[i] == "blue"){
+        blueButton.classList.replace("black", "blue");
+        setTimeout(function(){
+          blueButton.classList.replace("blue", "black");
+          console.log("blue button flashed");
+        },800);
+          audio.blueAudio.load();
+          audio.blueAudio.play();
+          audio.blueAudio.currentTime = 0;
+          console.log("blue button sound");
+      } else if (simon.sequence[i] == "green"){
+          greenButton.classList.replace("black", "green");
+          setTimeout(function(){
+            greenButton.classList.replace("green", "black");
+            console.log("green button flashed");
+          },800);
+          audio.greenAudio.load();
+          audio.greenAudio.play();
+          audio.greenAudio.currentTime = 0;
+          console.log("green button sound");
+      } else if (simon.sequence[i] == "yellow"){
+          yellowButton.classList.replace("black", "yellow");
+          setTimeout(function(){
+            yellowButton.classList.replace("yellow", "black");
+            console.log("yellow button flashed");
+          },800);
+          audio.yellowAudio.load();
+          audio.yellowAudio.play();
+          audio.yellowAudio.currentTime = 0;
+          console.log("yellow button sound");
+      } else {
+          console.log("something is wrong", i);
       }
-    //}, 1500);
+
+    //if the end of the array has been reached, stop
+    if(++i == simon.sequence.length){
+      return;
+    }
+
+    //recursively call the delayed loop function with a delay
+    window.setTimeout(delayedAudioLoop, 1200);
+    }
+    delayedAudioLoop(); //start loop
+
+
   }
 };
-
-function playRedAudio(){
-  setTimeout(function(){
-    audio.redAudio.load();
-    audio.redAudio.play();
-    //add class to flash the colour of the button played
-    console.log("red button sound played");
-  }, 1500);
-}
