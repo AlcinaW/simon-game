@@ -1,7 +1,14 @@
+:root {
+  --main-bg-color: brown; }
+
 body {
   margin: 0;
   padding: 0;
-  font-size: 18px; }
+  font-size: 18px;
+  background-color: var(--main-bg-color); }
+
+h1 {
+  text-transform: lowercase; }
 
 .simon-button {
   height: 5em;
