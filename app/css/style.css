@@ -1,3 +1,39 @@
-* {
+:root {
+  --main-bg-color: brown; }
+
+body {
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  font-size: 18px;
+  background-color: var(--main-bg-color);
+  font-family: 'Quicksand', sans-serif; }
+
+h1 {
+  text-transform: lowercase; }
+
+.simon-button {
+  height: 5em;
+  width: 5em;
+  border-radius: 15em; }
+  .simon-button#red {
+    border: 5px solid red; }
+  .simon-button#blue {
+    border: 5px solid blue; }
+  .simon-button#green {
+    border: 5px solid green; }
+  .simon-button#yellow {
+    border: 5px solid yellow; }
+  .simon-button.red {
+    background: red; }
+  .simon-button.blue {
+    background: blue; }
+  .simon-button.green {
+    background: green; }
+  .simon-button.yellow {
+    background: yellow; }
+  .simon-button.black {
+    background: black; }
+  .simon-button.strict-on {
+    color: red; }
+  .simon-button.strict-off {
+    color: green; }
